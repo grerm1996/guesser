@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Timer from "./components/timer.tsx";
+import ShakeDetector from "./components/shaketest.tsx";
 
 let list = [
   "Spirited Away",
@@ -29,6 +30,7 @@ function App() {
       <button onClick={() => setIndex((prevIndex) => prevIndex + 1)}>
         Got it
       </button>
+      <ShakeDetector />
     </div>
   );
 }
