@@ -21,8 +21,8 @@ function Timer() {
   }
 
   function formattedTime(time: number) {
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
     return `${minutes}: ${seconds < 10 ? `0${seconds}` : seconds}`;
   }
 

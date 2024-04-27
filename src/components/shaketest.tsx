@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const ShakeDetector = () => {
   const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
-    const handleMotionEvent = (event) => {
+    const handleMotionEvent = (event: DeviceMotionEvent) => {
       const threshold = 15; // Adjust this threshold as needed
       const acceleration = event.accelerationIncludingGravity;
       if (
