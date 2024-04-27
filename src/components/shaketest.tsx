@@ -8,9 +8,10 @@ const ShakeDetector = () => {
       const threshold = 15; // Adjust this threshold as needed
       const acceleration = event.accelerationIncludingGravity;
       if (
-        Math.abs(acceleration.x) > threshold ||
-        Math.abs(acceleration.y) > threshold ||
-        Math.abs(acceleration.z) > threshold
+        acceleration &&
+        (Math.abs(acceleration.x!) > threshold ||
+          Math.abs(acceleration.y!) > threshold ||
+          Math.abs(acceleration.z!) > threshold)
       ) {
         setIsShaking(true);
         setTimeout(() => {
