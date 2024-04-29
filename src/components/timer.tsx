@@ -1,24 +1,21 @@
 import { useState, useEffect } from "react";
 import "./timer.css";
 
-function Timer() {
+function Timer(props) {
   const [time, setTime] = useState<number>(10);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isRunning && time > 0) {
+    if (time == 0) {
+      props.setGameOver(true);
+      props.setGameStart(false);
+    }
+
+    if (props.gameStart && time > 0) {
       setTimeout(() => {
         setTime((time) => time - 1);
       }, 1000);
     }
   }, [time]);
-
-  function start() {
-    if (!isRunning) {
-      setIsRunning(true);
-      setTime((time) => time - 1);
-    }
-  }
 
   function formattedTime(time: number) {
     const minutes = Math.floor(time / 60);
@@ -29,7 +26,6 @@ function Timer() {
   return (
     <>
       <div className="clock">{formattedTime(time)}</div>
-      {isRunning ? "" : <button onClick={() => start()}>start</button>}
     </>
   );
 }

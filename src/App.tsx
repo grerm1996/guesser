@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Timer from "./components/timer.tsx";
-import ShakeDetector from "./components/shaketest.tsx";
 
-let list = [
-  "Spirited Away",
-  "Howl's Moving Castle",
-  "Porco Rosso",
-  "The Boy and the Heron",
-];
+import Setup from "./components/setup.tsx";
+
+import GamePlay from "./components/gameplay.tsx";
+import GameOver from "./components/gameover.tsx";
+import ghibli from "./lists/ghibli.json";
+import cage from "./lists/cage.json";
+
 const shuffle = (array: string[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -17,20 +16,76 @@ const shuffle = (array: string[]) => {
   return array;
 };
 
-function App() {
-  const [index, setIndex] = useState<number>(0);
-  const [shuffledList, setShuffledList] = useState<string[]>([]);
+const lists = { ghibli, cage };
 
-  useEffect(() => setShuffledList(shuffle(list)), []);
+interface item {
+  name: string;
+  status: "unused" | "correct" | "passed";
+}
+
+function App() {
+  const [shuffledList, setShuffledList] = useState<item[]>([]);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [gameStart, setGameStart] = useState<boolean>(false);
+  const [index, setIndex] = useState<number>(0);
+  const [selectedOption, setSelectedOption] = useState<string>("ghibli");
+  const [numberCorrect, setNumberCorrect] = useState<number>(0);
+
+  function start() {
+    if (!gameStart) {
+      setShuffledList(
+        shuffle(lists[selectedOption]).map((item) => ({
+          name: item,
+          status: "unused",
+        }))
+      );
+      setGameStart(true);
+    }
+  }
+  function returnToStart() {
+    setGameOver(false);
+    setIndex(0);
+    setNumberCorrect(0);
+  }
 
   return (
     <div className="container">
-      <p className="display">{shuffledList[index]}</p>
-      <Timer />
-      <button onClick={() => setIndex((prevIndex) => prevIndex + 1)}>
-        Got it
-      </button>
-      <ShakeDetector />
+      {!gameOver && gameStart ? (
+        <GamePlay
+          setGameOver={setGameOver}
+          gameStart={gameStart}
+          shuffledList={shuffledList}
+          setGameStart={setGameStart}
+          setShuffledList={setShuffledList}
+          index={index}
+          setIndex={setIndex}
+          setNumberCorrect={setNumberCorrect}
+        />
+      ) : (
+        ""
+      )}
+
+      {!gameOver && !gameStart && (
+        <Setup
+          setGameStart={setGameStart}
+          gameStart={gameStart}
+          setSelectedOption={setSelectedOption}
+          selectedOption={selectedOption}
+          start={start}
+          index={index}
+        />
+      )}
+
+      {gameOver ? (
+        <GameOver
+          shuffledList={shuffledList}
+          index={index}
+          numberCorrect={numberCorrect}
+          returnToStart={returnToStart}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

@@ -16,7 +16,7 @@ const ShakeDetector = () => {
         setIsShaking(true);
         setTimeout(() => {
           setIsShaking(false);
-        }, 1000); // Reset shaking state after 1 second
+        }, 800); // Reset shaking state after 1 second
       }
     };
 
