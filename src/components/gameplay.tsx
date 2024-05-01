@@ -12,6 +12,8 @@ function GamePlay(props) {
   }
 
   function clickCorrect() {
+    const audio = new Audio("public/ding.mp3");
+    audio.play();
     props.setShuffledList((shuffledList) => [
       ...shuffledList,
       (shuffledList[props.index].status = "correct"),
@@ -27,6 +29,7 @@ function GamePlay(props) {
         setGameOver={props.setGameOver}
         gameStart={props.gameStart}
         setGameStart={props.setGameStart}
+        timeLimit={props.timeLimit}
       />
       <div className="button-container">
         <button className="correct-button" onClick={() => clickCorrect()}>

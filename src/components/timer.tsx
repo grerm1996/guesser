@@ -5,6 +5,10 @@ function Timer(props) {
   const [time, setTime] = useState<number>(10);
 
   useEffect(() => {
+    setTime(props.timeLimit);
+  }, [props.timeLimit]);
+
+  useEffect(() => {
     if (time == 0) {
       props.setGameOver(true);
       props.setGameStart(false);

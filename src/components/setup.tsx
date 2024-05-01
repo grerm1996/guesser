@@ -8,6 +8,14 @@ function Setup(props) {
 
   return (
     <>
+      <div>
+        <input
+          className="time-input"
+          placeholder="Enter time limit"
+          value={props.timeLimit}
+          onChange={(event) => props.setTimeLimit(parseInt(event.target.value))}
+        />
+      </div>
       <select
         className="dropdown"
         value={props.selectedOption}
