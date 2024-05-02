@@ -1,8 +1,23 @@
-import { useState } from "react";
 import "./gameover.css";
 import Replay from "@mui/icons-material/Replay";
 
-function GameOver({ shuffledList, index, numberCorrect, returnToStart }) {
+interface GameOverProps {
+  shuffledList: Array<item>;
+  index: number;
+  numberCorrect: number;
+  returnToStart: () => void;
+}
+interface item {
+  name: string;
+  status: "unused" | "correct" | "passed";
+}
+
+function GameOver({
+  shuffledList,
+  index,
+  numberCorrect,
+  returnToStart,
+}: GameOverProps) {
   return (
     <div className="gameover-screen">
       <div className="congrats">Congrats! You got {numberCorrect} correct:</div>
