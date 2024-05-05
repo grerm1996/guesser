@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import "./timer.css";
 
 function Timer(props: {
-  timeLimit: number;
+  timeLimit: number | "";
   gameStart: boolean;
   setGameOver: (value: boolean) => void;
   setGameStart: (value: boolean) => void;
 }) {
-  const [time, setTime] = useState<number>(props.timeLimit);
+  const [time, setTime] = useState<number | "">(props.timeLimit);
 
   useEffect(() => {
     setTime(props.timeLimit);
@@ -21,9 +21,9 @@ function Timer(props: {
       props.setGameStart(false);
     }
 
-    if (props.gameStart && time > 0) {
+    if (time != "" && props.gameStart && time > 0) {
       timer = setTimeout(() => {
-        setTime((prevTime) => prevTime - 1);
+        setTime((prevTime) => (prevTime as number) - 1);
       }, 1000);
     }
 
@@ -39,9 +39,7 @@ function Timer(props: {
   }
 
   return (
-    <>
-      <div className="clock">{formattedTime(time)}</div>
-    </>
+    <>{time !== "" ? <div className="clock">{formattedTime(time)}</div> : ""}</>
   );
 }
 

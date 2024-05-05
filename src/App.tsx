@@ -37,6 +37,7 @@ function App() {
   const [timeLimit, setTimeLimit] = useState<number | "">(60);
 
   function start() {
+    if (timeLimit === "") return;
     if (!gameStart) {
       setShuffledList(
         shuffle(lists[selectedOption]).map((item) => ({

@@ -1,4 +1,5 @@
 import "./gameplay.css";
+import { useState } from "react";
 import Timer from "./timer.tsx";
 
 function GamePlay(props: {
@@ -13,27 +14,55 @@ function GamePlay(props: {
   setNumberCorrect: (value: number) => void;
   timeLimit: number | "";
 }) {
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  const [isScrapped, setIsScrapped] = useState<boolean>(false);
+
   function clickPass() {
+    if (isChecked || isScrapped) return;
+    const audio = new Audio("/swoosh.mp3");
+    audio.play();
+    setIsScrapped(true);
+    setTimeout(() => {
+      setIsScrapped(false);
+      props.setIndex(props.index + 1);
+    }, 1000);
     const updatedList = [...props.shuffledList];
     updatedList[props.index].status = "passed";
     props.setShuffledList(updatedList);
-    props.setIndex(props.index + 1);
   }
 
   function clickCorrect() {
+    if (isChecked || isScrapped) return;
     console.log("ding!");
-    const audio = new Audio("public/ding.mp3");
+    const audio = new Audio("/ding.mp3");
     audio.play();
+    setIsChecked(true);
+    setTimeout(() => {
+      setIsChecked(false);
+      props.setIndex(props.index + 1);
+    }, 3000);
     const updatedList = [...props.shuffledList];
     updatedList[props.index].status = "correct";
     props.setShuffledList(updatedList);
-    props.setIndex(props.index + 1);
+
     props.setNumberCorrect(props.numberCorrect + 1);
   }
 
   return (
     <>
-      <p className="display">{props.shuffledList[props.index].name}</p>
+      <div className="display">
+        <p
+          className={`${isChecked ? "kaching" : ""}${
+            isScrapped ? "scrapped" : ""
+          }`}
+        >
+          {props.shuffledList[props.index].name}
+        </p>
+        <p className={`${isChecked ? "kaching" : ""} `}>
+          {props.shuffledList[props.index + 1].name}
+        </p>
+      </div>
       <Timer
         setGameOver={props.setGameOver}
         gameStart={props.gameStart}

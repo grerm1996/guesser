@@ -1,0 +1,36 @@
+.display {
+  margin: 0;
+  padding: 0;
+  --height: 5.5rem;
+  height: var(--height);
+  overflow: hidden;
+}
+
+.kaching {
+  animation: slide-up 3s;
+}
+
+@keyframes slide-up {
+  0%,
+  30% {
+    transform: translateY(-0%);
+  }
+
+  30%,
+  98% {
+    transform: translateY(-108%);
+  }
+
+  98%,
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.display p {
+  margin: 0;
+}
+
+.scrapped {
+  text-decoration: line-through;
+}
