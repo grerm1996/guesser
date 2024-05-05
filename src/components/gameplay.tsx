@@ -20,7 +20,7 @@ function GamePlay(props: {
 
   function clickPass() {
     if (isChecked || isScrapped) return;
-    const audio = new Audio("public/swoosh.mp3");
+    const audio = new Audio("/swoosh.mp3");
     audio.play();
     setIsScrapped(true);
     setTimeout(() => {
@@ -35,7 +35,7 @@ function GamePlay(props: {
   function clickCorrect() {
     if (isChecked || isScrapped) return;
     console.log("ding!");
-    const audio = new Audio("public/ding.mp3");
+    const audio = new Audio("/ding.mp3");
     audio.play();
     setIsChecked(true);
     setTimeout(() => {
