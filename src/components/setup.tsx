@@ -1,8 +1,16 @@
-import { useState, useEffect } from "react";
 import "./setup.css";
+import { ChangeEvent } from "react";
 
-function Setup(props) {
-  const handleSelectChange = (event) => {
+function Setup(props: {
+  timeLimit: number;
+  selectedOption: string;
+  setSelectedOption: (value: string) => void;
+  setTimeLimit: (value: number) => void;
+  start: () => void;
+  gameStart: boolean;
+  index: number;
+}) {
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     props.setSelectedOption(event.target.value);
   };
 

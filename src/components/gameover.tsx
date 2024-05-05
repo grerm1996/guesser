@@ -9,7 +9,7 @@ interface GameOverProps {
 }
 interface item {
   name: string;
-  status: "unused" | "correct" | "passed";
+  status: string;
 }
 
 function GameOver({

@@ -16,11 +16,15 @@ const shuffle = (array: string[]) => {
   return array;
 };
 
-const lists = { ghibli, cage };
+interface Lists {
+  [key: string]: string[];
+}
+
+const lists: Lists = { ghibli, cage };
 
 interface item {
   name: string;
-  status: "unused" | "correct" | "passed";
+  status: string;
 }
 
 function App() {
@@ -60,6 +64,7 @@ function App() {
           setShuffledList={setShuffledList}
           index={index}
           setIndex={setIndex}
+          numberCorrect={numberCorrect}
           setNumberCorrect={setNumberCorrect}
           timeLimit={timeLimit}
         />
@@ -69,7 +74,6 @@ function App() {
 
       {!gameOver && !gameStart && (
         <Setup
-          setGameStart={setGameStart}
           gameStart={gameStart}
           setSelectedOption={setSelectedOption}
           selectedOption={selectedOption}

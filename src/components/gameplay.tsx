@@ -1,25 +1,34 @@
-import { useState, useEffect } from "react";
 import "./gameplay.css";
 import Timer from "./timer.tsx";
 
-function GamePlay(props) {
+function GamePlay(props: {
+  setGameOver: (value: boolean) => void;
+  gameStart: boolean;
+  shuffledList: { name: string; status: string }[];
+  setGameStart: (value: boolean) => void;
+  setShuffledList: (value: { name: string; status: string }[]) => void;
+  index: number;
+  setIndex: (value: number) => void;
+  numberCorrect: number;
+  setNumberCorrect: (value: number) => void;
+  timeLimit: number;
+}) {
   function clickPass() {
-    props.setShuffledList((shuffledList) => [
-      ...shuffledList,
-      (shuffledList[props.index].status = "passed"),
-    ]);
-    props.setIndex((prevIndex) => prevIndex + 1);
+    const updatedList = [...props.shuffledList];
+    updatedList[props.index].status = "passed";
+    props.setShuffledList(updatedList);
+    props.setIndex(props.index + 1);
   }
 
   function clickCorrect() {
+    console.log("ding!");
     const audio = new Audio("public/ding.mp3");
     audio.play();
-    props.setShuffledList((shuffledList) => [
-      ...shuffledList,
-      (shuffledList[props.index].status = "correct"),
-    ]);
-    props.setNumberCorrect((prevNum) => prevNum + 1);
-    props.setIndex((prevIndex) => prevIndex + 1);
+    const updatedList = [...props.shuffledList];
+    updatedList[props.index].status = "correct";
+    props.setShuffledList(updatedList);
+    props.setIndex(props.index + 1);
+    props.setNumberCorrect(props.numberCorrect + 1);
   }
 
   return (

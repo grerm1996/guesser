@@ -1,24 +1,35 @@
 import { useState, useEffect } from "react";
 import "./timer.css";
 
-function Timer(props) {
-  const [time, setTime] = useState<number>(10);
+function Timer(props: {
+  timeLimit: number;
+  gameStart: boolean;
+  setGameOver: (value: boolean) => void;
+  setGameStart: (value: boolean) => void;
+}) {
+  const [time, setTime] = useState<number>(props.timeLimit);
 
   useEffect(() => {
     setTime(props.timeLimit);
   }, [props.timeLimit]);
 
   useEffect(() => {
-    if (time == 0) {
+    let timer: NodeJS.Timeout;
+
+    if (time === 0) {
       props.setGameOver(true);
       props.setGameStart(false);
     }
 
     if (props.gameStart && time > 0) {
-      setTimeout(() => {
-        setTime((time) => time - 1);
+      timer = setTimeout(() => {
+        setTime((prevTime) => prevTime - 1);
       }, 1000);
     }
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [time]);
 
   function formattedTime(time: number) {
