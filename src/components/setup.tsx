@@ -2,10 +2,10 @@ import "./setup.css";
 import { ChangeEvent } from "react";
 
 function Setup(props: {
-  timeLimit: number;
+  timeLimit: number | "";
   selectedOption: string;
   setSelectedOption: (value: string) => void;
-  setTimeLimit: (value: number) => void;
+  setTimeLimit: (value: number | "") => void;
   start: () => void;
   gameStart: boolean;
   index: number;
@@ -17,12 +17,19 @@ function Setup(props: {
   return (
     <>
       <div>
-        <input
-          className="time-input"
-          placeholder="Enter time limit"
-          value={props.timeLimit}
-          onChange={(event) => props.setTimeLimit(parseInt(event.target.value))}
-        />
+        <div className="time-setter-container">
+          <input
+            className="time-input"
+            value={props.timeLimit}
+            onChange={(event) => {
+              if (event.target.value === "") props.setTimeLimit("");
+              else if (isNaN(Number(event.target.value)))
+                props.setTimeLimit("");
+              else props.setTimeLimit(parseInt(event.target.value));
+            }}
+          />{" "}
+          <p> seconds</p>
+        </div>
       </div>
       <select
         className="dropdown"

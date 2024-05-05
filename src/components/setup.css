@@ -25,7 +25,14 @@
 
 .time-input {
   font-size: 1.5rem;
-  width: 10rem;
+  width: 4rem;
   margin-bottom: 10px;
   display: flex;
+}
+
+.time-setter-container {
+  display: flex;
+}
+.time-setter-container p {
+  padding-left: 0.2rem;
 }

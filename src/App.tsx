@@ -34,7 +34,7 @@ function App() {
   const [index, setIndex] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<string>("ghibli");
   const [numberCorrect, setNumberCorrect] = useState<number>(0);
-  const [timeLimit, setTimeLimit] = useState<number>(60);
+  const [timeLimit, setTimeLimit] = useState<number | "">(60);
 
   function start() {
     if (!gameStart) {

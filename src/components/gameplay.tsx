@@ -11,7 +11,7 @@ function GamePlay(props: {
   setIndex: (value: number) => void;
   numberCorrect: number;
   setNumberCorrect: (value: number) => void;
-  timeLimit: number;
+  timeLimit: number | "";
 }) {
   function clickPass() {
     const updatedList = [...props.shuffledList];
