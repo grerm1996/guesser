@@ -20,7 +20,7 @@ function GamePlay(props: {
 
   function clickPass() {
     if (isChecked || isScrapped) return;
-    const audio = new Audio("/swoosh.mp3");
+    const audio = new Audio("./swoosh.mp3");
     audio.play();
     setIsScrapped(true);
     setTimeout(() => {
@@ -35,13 +35,13 @@ function GamePlay(props: {
   function clickCorrect() {
     if (isChecked || isScrapped) return;
     console.log("ding!");
-    const audio = new Audio("/ding.mp3");
+    const audio = new Audio("./ding.mp3");
     audio.play();
     setIsChecked(true);
     setTimeout(() => {
       setIsChecked(false);
       props.setIndex(props.index + 1);
-    }, 3000);
+    }, 2000);
     const updatedList = [...props.shuffledList];
     updatedList[props.index].status = "correct";
     props.setShuffledList(updatedList);
@@ -70,10 +70,18 @@ function GamePlay(props: {
         timeLimit={props.timeLimit}
       />
       <div className="button-container">
-        <button className="correct-button" onClick={() => clickCorrect()}>
+        <button
+          className="correct-button"
+          onClick={() => clickCorrect()}
+          disabled={isChecked || isScrapped}
+        >
           Got it
         </button>
-        <button className="pass-button" onClick={clickPass}>
+        <button
+          className="pass-button"
+          onClick={clickPass}
+          disabled={isChecked || isScrapped}
+        >
           Pass
         </button>
       </div>
